@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bank Transfer</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f7f9fc;
+    }
+    .top-bar {
+      background: #0047FF;
+      height: 25px;
+    }
+    .header {
+      background: #000;
+      color: white;
+      padding: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .container {
+      padding: 20px;
+    }
+    .amount {
+      font-size: 28px;
+      font-weight: bold;
+      text-align: center;
+      margin: 10px 0;
+    }
+    .desc {
+      text-align: center;
+      color: gray;
+      margin-bottom: 20px;
+    }
+    .instructions {
+      background: #e8f0fe;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .instructions h3 {
+      color: #003c9e;
+    }
+    .info-box {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .info-item span {
+      font-weight: bold;
+    }
+    .copy-btn {
+      background: #0047FF;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: #0047FF;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar"></div>
+  <div class="header">BLUEPAY</div>
+  <div class="container">
+    <div class="amount">NGN 7,250</div>
+    <div class="desc">BPC Code Purchase</div>
+
+    <div class="instructions">
+      <h3>Instructions:</h3>
+      <ol>
+        <li>Copy the account details below</li>
+        <li>Open your bank app and make a transfer</li>
+        <li>Return here and click "I have made this bank Transfer"</li>
+        <li>Wait for confirmation (usually within 3 minutes)</li>
+      </ol>
+    </div>
+
+    <div class="info-box">
+      <div class="info-item">
+        <div>Amount</div>
+        <div><span>NGN 7250</span> <button class="copy-btn" onclick="copyText('7250')">Copy</button></div>
+      </div>
+      <div class="info-item">
+        <div>Account Number</div>
+        <div><span>9127585834</span> <button class="copy-btn" onclick="copyText('9127585834')">Copy</button></div>
+      </div>
+      <div class="info-item">
+        <div>Bank Name</div>
+        <div><span>PALMPAY</span></div>
+      </div>
+      <div class="info-item">
+        <div>Account Name</div>
+        <div><span>KHALIFAH IBRAHIM</span></div>
+      </div>
+    </div>
+
+    <p style="text-align:center; font-size:14px; margin-top:-10px;">Pay to this specific account and get your BPC code</p>
+    <button class="submit-btn" onclick="location.href='confirm.html'">I have made this bank Transfer</button>
+  </div>
+
+  <script>
+    function copyText(text) {
+      navigator.clipboard.writeText(text);
+      alert("Copied: " + text);
+    }
+  </script>
+</body>
+</html>
