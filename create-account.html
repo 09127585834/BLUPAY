@@ -6,161 +6,165 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      background-color: #001eff;
-      font-family: Arial, sans-serif;
+      background-color: #001aff;
       margin: 0;
-      padding: 0;
+      font-family: Arial, sans-serif;
       color: white;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
-    .container {
-      padding-top: 40px;
-    }
-    .camera-icon {
-      width: 80px;
-      height: 80px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      margin: auto;
-      position: relative;
-    }
-    .camera-icon::before {
-      content: "📷";
-      font-size: 32px;
-      position: absolute;
-      top: 22px;
-      left: 25px;
+    .logo {
+      margin-top: 20px;
     }
     h2 {
-      margin-top: 20px;
-      font-size: 24px;
+      font-size: 22px;
+      margin: 20px 0 5px;
     }
     p {
+      margin: 0 0 20px;
       font-size: 14px;
-      color: #ddd;
     }
     .pin-circles {
       display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin: 20px 0;
+      gap: 15px;
+      margin: 10px 0 30px;
     }
-    .circle {
-      width: 30px;
-      height: 30px;
-      border: 2px solid white;
+    .pin-circle {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #fff;
       border-radius: 50%;
     }
-    .keypad {
+    .numpad {
       display: grid;
       grid-template-columns: repeat(3, 80px);
-      gap: 15px;
+      grid-gap: 20px;
       justify-content: center;
-      margin-top: 20px;
     }
-    .key {
+    .numpad button {
       width: 80px;
       height: 80px;
-      background-color: rgba(255,255,255,0.1);
       border-radius: 50%;
-      font-size: 24px;
-      line-height: 80px;
+      background-color: rgba(255, 255, 255, 0.1);
       color: white;
+      font-size: 24px;
+      border: none;
       cursor: pointer;
     }
-    .actions {
+    .bottom {
       margin-top: 20px;
       font-size: 14px;
+      text-align: center;
     }
-    .actions a {
-      color: #fff;
+    .bottom a {
+      color: white;
       text-decoration: underline;
-    }
-    .key.fingerprint::before {
-      content: "🔒";
-    }
-    .key.delete::before {
-      content: "✖";
+      display: block;
+      margin-top: 5px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="camera-icon"></div>
-    <h2>Enter Your Passcode</h2>
-    <p>Enter your PIN to access your wallet</p>
 
-    <div class="pin-circles" id="pin-circles">
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-    </div>
+  <div class="logo">
+    <img src="https://img.icons8.com/ios-filled/100/ffffff/camera.png" width="60">
+  </div>
 
-    <div class="keypad" id="keypad">
-      <!-- Number Keys -->
-      <div class="key">1</div>
-      <div class="key">2</div>
-      <div class="key">3</div>
-      <div class="key">4</div>
-      <div class="key">5</div>
-      <div class="key">6</div>
-      <div class="key">7</div>
-      <div class="key">8</div>
-      <div class="key">9</div>
-      <div class="key fingerprint"></div>
-      <div class="key">0</div>
-      <div class="key delete"></div>
-    </div>
+  <h2>Enter Your Passcode</h2>
+  <p>Enter your PIN to access your wallet</p>
 
-    <div class="actions">
-      Forgotten your passcode?<br>
-      <a href="#">Reset passcode</a>
-    </div>
+  <div class="pin-circles" id="pinDisplay">
+    <div class="pin-circle"></div>
+    <div class="pin-circle"></div>
+    <div class="pin-circle"></div>
+    <div class="pin-circle"></div>
+  </div>
+
+  <div class="numpad" id="numpad">
+    <!-- Buttons will be added by JS -->
+  </div>
+
+  <div class="bottom">
+    <span>Forgotten your passcode?</span>
+    <a href="#" onclick="resetPIN()">Reset passcode</a>
   </div>
 
   <script>
-    const correctPIN = "123456"; // Set your desired PIN
+    const pinDisplay = document.getElementById('pinDisplay');
     let enteredPIN = "";
 
-    const updateCircles = () => {
-      const circles = document.querySelectorAll(".circle");
-      circles.forEach((circle, i) => {
-        circle.style.backgroundColor = i < enteredPIN.length ? "#fff" : "transparent";
-      });
-    };
+    const savedPIN = localStorage.getItem("userPIN");
+    const numpad = document.getElementById('numpad');
 
-    const resetPIN = () => {
-      enteredPIN = "";
-      updateCircles();
-    };
+    const addCircle = () => {
+      pinDisplay.innerHTML = "";
+      for (let i = 0; i < 4; i++) {
+        const dot = document.createElement("div");
+        dot.className = "pin-circle";
+        if (i < enteredPIN.length) dot.style.background = "white";
+        pinDisplay.appendChild(dot);
+      }
+    }
 
-    document.querySelectorAll(".key").forEach(key => {
-      key.addEventListener("click", () => {
-        const val = key.textContent.trim();
-        if (val >= '0' && val <= '9') {
-          if (enteredPIN.length < 6) {
-            enteredPIN += val;
-            updateCircles();
-          }
-          if (enteredPIN.length === 6) {
-            setTimeout(() => {
-              if (enteredPIN === correctPIN) {
-                window.location.href = "dashboard.html";
-              } else {
-                alert("Incorrect PIN. Try again.");
-                resetPIN();
-              }
-            }, 200);
-          }
-        } else if (key.classList.contains("delete")) {
-          enteredPIN = enteredPIN.slice(0, -1);
-          updateCircles();
+    const checkPIN = () => {
+      if (enteredPIN.length === 4) {
+        if (!savedPIN) {
+          localStorage.setItem("userPIN", enteredPIN);
+          alert("PIN saved!");
+          window.location.href = "dashboard.html";
+        } else if (enteredPIN === savedPIN) {
+          window.location.href = "dashboard.html";
+        } else {
+          alert("Incorrect PIN");
         }
+        enteredPIN = "";
+        addCircle();
+      }
+    }
+
+    const pressKey = num => {
+      if (enteredPIN.length < 4) {
+        enteredPIN += num;
+        addCircle();
+        checkPIN();
+      }
+    }
+
+    const createButtons = () => {
+      const buttons = ["1","2","3","4","5","6","7","8","9","0"];
+      buttons.forEach(num => {
+        const btn = document.createElement("button");
+        btn.innerText = num;
+        btn.onclick = () => pressKey(num);
+        numpad.appendChild(btn);
       });
-    });
+
+      const fingerprint = document.createElement("button");
+      fingerprint.innerHTML = "&#128376;";
+      fingerprint.onclick = () => alert("Biometric not supported in this demo");
+      numpad.appendChild(fingerprint);
+
+      const clear = document.createElement("button");
+      clear.innerHTML = "&#10006;";
+      clear.onclick = () => {
+        enteredPIN = "";
+        addCircle();
+      };
+      numpad.appendChild(clear);
+    }
+
+    function resetPIN() {
+      localStorage.removeItem("userPIN");
+      alert("PIN reset. Please enter a new one.");
+      enteredPIN = "";
+      addCircle();
+    }
+
+    addCircle();
+    createButtons();
   </script>
 </body>
 </html>
