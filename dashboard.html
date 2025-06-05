@@ -2,154 +2,176 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>BLUEPAY Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom right, #6a11cb, #8e54e9);
       font-family: 'Segoe UI', sans-serif;
-      color: white;
+      background: #f2f4ff;
     }
-
     .top-bar {
+      background: #0018ff;
+      color: white;
+      padding: 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
     }
-
-    .top-bar .username {
+    .top-bar .user {
       font-size: 18px;
     }
-
     .top-bar .icons {
       display: flex;
-      gap: 15px;
+      gap: 20px;
     }
-
-    .logo {
-      text-align: center;
-      font-size: 28px;
-      font-weight: bold;
-      color: white;
-      animation: flicker 1s infinite alternate;
+    .top-bar .icons i {
+      font-size: 20px;
+      cursor: pointer;
     }
-
-    @keyframes flicker {
-      0% { opacity: 1; }
-      100% { opacity: 0.85; }
-    }
-
     .balance-card {
-      background: white;
-      color: black;
+      background: #0018ff;
+      color: white;
       margin: 20px;
+      border-radius: 15px;
       padding: 20px;
-      border-radius: 12px;
-      text-align: center;
-      font-size: 24px;
     }
-
-    .features {
+    .balance-card h2 {
+      margin: 0;
+      font-size: 26px;
+    }
+    .balance-card .btn {
+      background: white;
+      color: #0018ff;
+      padding: 8px 15px;
+      border-radius: 8px;
+      float: right;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .features, .services {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around;
       margin: 10px;
-      gap: 15px;
     }
-
-    .feature {
-      width: 80px;
+    .features div, .services div {
+      width: 22%;
+      margin: 10px 0;
+      background: #fff;
       text-align: center;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.1);
       border-radius: 10px;
+      padding: 10px 0;
       cursor: pointer;
     }
-
-    .feature:hover {
-      background: rgba(255, 255, 255, 0.2);
+    .features div:hover, .services div:hover {
+      background: #eef;
     }
-
+    .important-info {
+      margin: 20px;
+      background: linear-gradient(to right, #7e5bef, #8b5cf6);
+      border-radius: 15px;
+      padding: 15px;
+      color: white;
+    }
+    .important-info h3 {
+      margin-top: 0;
+    }
     .bottom-nav {
       position: fixed;
       bottom: 0;
       width: 100%;
-      background: rgba(0, 0, 0, 0.2);
+      background: white;
       display: flex;
       justify-content: space-around;
       padding: 10px 0;
+      border-top: 1px solid #ddd;
     }
-
     .bottom-nav div {
-      color: white;
+      text-align: center;
+      font-size: 12px;
       cursor: pointer;
+    }
+    .bottom-nav .center-btn {
+      background: #0018ff;
+      color: white;
+      font-size: 24px;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      margin-top: -30px;
     }
   </style>
 </head>
 <body>
 
   <div class="top-bar">
-    <div onclick="location.href='admin.html'">⋮</div>
-    <div class="username">Hi, <span id="username">User</span></div>
-    <div class="icons" onclick="location.href='history.html'">
-      🔔
+    <div class="user" id="welcomeUser">Hi, User</div>
+    <div class="icons">
+      <span onclick="window.location.href='admin.html'">⋮</span>
+      <span onclick="window.location.href='history.html'">🔔</span>
     </div>
   </div>
 
-  <div class="logo">BLUEPAY</div>
-
   <div class="balance-card">
-    Balance: ₦<span id="balance">0</span>
+    <div>
+      <span>Available Balance</span>
+      <div class="btn" onclick="window.location.href='withdraw.html'">Withdraw</div>
+    </div>
+    <h2 id="userBalance">₦0</h2>
+    <div>
+      <small>Daily spend target</small>
+      <div style="background:#ddd;height:6px;border-radius:5px;width:100%;">
+        <div style="width:70%;height:6px;background:#bbb;border-radius:5px;"></div>
+      </div>
+      <div style="text-align:right;">₦200,000</div>
+    </div>
   </div>
 
   <div class="features">
-    <div class="feature" onclick="spend('Buy BPC Code', 'buy.html', 500)">Buy BPC</div>
-    <div class="feature" onclick="spend('Watch & Earn', 'watch.html', 0)">Watch</div>
-    <div class="feature" onclick="spend('Airtime', 'airtime.html', 200)">Airtime</div>
-    <div class="feature" onclick="spend('Data Purchase', 'data.html', 300)">Data</div>
-    <div class="feature" onclick="location.href='support.html'">Support</div>
-    <div class="feature" onclick="location.href='group.html'">Group</div>
-    <div class="feature" onclick="location.href='earn.html'">Earn</div>
-    <div class="feature" onclick="location.href='profile.html'">Profile</div>
-    <div class="feature" onclick="spend('Withdraw', 'withdraw.html', 100)">Withdraw</div>
+    <div onclick="window.location.href='buy.html'">Buy BPC</div>
+    <div onclick="window.location.href='watch.html'">Watch</div>
+    <div onclick="window.location.href='airtime.html'">Airtime</div>
+    <div onclick="window.location.href='data.html'">Data</div>
+  </div>
+
+  <div class="services">
+    <div onclick="window.location.href='support.html'">Support</div>
+    <div onclick="window.location.href='group.html'">Group</div>
+    <div onclick="window.location.href='earn.html'">Earn</div>
+    <div onclick="window.location.href='profile.html'">Profile</div>
+  </div>
+
+  <div class="important-info">
+    <h3>Important Information</h3>
+    <p>1. Click "Buy BPC" from dashboard</p>
+    <p>2. Fill details and amount</p>
+    <p>3. Complete payment for BPC code</p>
+    <p>4. Use code for airtime & withdrawals</p>
   </div>
 
   <div class="bottom-nav">
-    <div onclick="location.href='group.html'">Social</div>
-    <div onclick="location.href='data.html'">Data</div>
-    <div onclick="location.href='profile.html'">Profile</div>
+    <div onclick="window.location.href='wallet.html'">Wallet</div>
+    <div onclick="window.location.href='group.html'">Social</div>
+    <div class="center-btn" onclick="window.location.href='add.html'">+</div>
+    <div onclick="window.location.href='data.html'">Data</div>
+    <div onclick="window.location.href='profile.html'">Profile</div>
   </div>
 
   <script>
-    // Load username and balance
-    const username = localStorage.getItem("username") || "User";
-    document.getElementById("username").textContent = username;
+    // Load name and balance
+    const name = localStorage.getItem('paygo_name') || 'User';
+    const balance = parseInt(localStorage.getItem('paygo_balance') || '200000');
+    document.getElementById('welcomeUser').innerText = `Hi, ${name}`;
+    document.getElementById('userBalance').innerText = `₦${balance.toLocaleString()}`;
 
-    let balance = parseInt(localStorage.getItem("balance") || "1000");
-    document.getElementById("balance").textContent = balance;
-
-    function spend(title, redirect, amount) {
-      if (balance >= amount) {
-        balance -= amount;
-        localStorage.setItem("balance", balance);
-        document.getElementById("balance").textContent = balance;
-
-        // Record to history
-        let history = JSON.parse(localStorage.getItem("history") || "[]");
-        history.unshift({
-          type: title,
-          amount: `₦${amount}`,
-          date: new Date().toLocaleString()
-        });
-        localStorage.setItem("history", JSON.stringify(history));
-        location.href = redirect;
-      } else {
-        alert("Insufficient balance");
-      }
-    }
+    // Update balance on dashboard after spending
+    window.addEventListener('storage', () => {
+      const updatedBalance = parseInt(localStorage.getItem('paygo_balance') || '200000');
+      document.getElementById('userBalance').innerText = `₦${updatedBalance.toLocaleString()}`;
+    });
   </script>
 </body>
 </html>
