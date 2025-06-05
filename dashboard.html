@@ -7,237 +7,171 @@
   <style>
     body {
       margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(to bottom, #001aff, #e0e0ff);
-      color: #000;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f4ff;
     }
-
     .top-bar {
-      background-color: #001aff;
+      background: #0018ff;
       color: white;
       padding: 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-
-    .top-bar .dots {
-      font-size: 24px;
-      cursor: pointer;
+    .top-bar .user {
+      font-size: 18px;
     }
-
-    .top-bar .bell {
+    .top-bar .icons {
+      display: flex;
+      gap: 20px;
+    }
+    .top-bar .icons i {
       font-size: 20px;
       cursor: pointer;
     }
-
-    .welcome {
-      background: white;
-      border-radius: 20px 20px 0 0;
-      padding: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .welcome .greet {
-      font-size: 18px;
-      font-weight: bold;
-    }
-
     .balance-card {
-      background-color: #001aff;
+      background: #0018ff;
       color: white;
-      margin: 15px;
-      border-radius: 20px;
+      margin: 20px;
+      border-radius: 15px;
       padding: 20px;
-      text-align: center;
     }
-
-    .balance-card .amount {
-      font-size: 30px;
-      font-weight: bold;
+    .balance-card h2 {
+      margin: 0;
+      font-size: 26px;
     }
-
-    .balance-card button {
-      margin-top: 10px;
-      padding: 10px 20px;
+    .balance-card .btn {
       background: white;
-      color: #001aff;
-      border: none;
-      border-radius: 10px;
+      color: #0018ff;
+      padding: 8px 15px;
+      border-radius: 8px;
+      float: right;
       font-weight: bold;
       cursor: pointer;
     }
-
-    .features, .more-services {
+    .features, .services {
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
-      padding: 0 15px;
+      justify-content: space-around;
+      margin: 10px;
     }
-
-    .card {
-      flex: 1 1 calc(25% - 15px);
-      background: #f5f5f5;
+    .features div, .services div {
+      width: 22%;
+      margin: 10px 0;
+      background: #fff;
       text-align: center;
-      border-radius: 15px;
-      padding: 15px 5px;
-      font-size: 14px;
+      border-radius: 10px;
+      padding: 10px 0;
       cursor: pointer;
     }
-
-    .info-banner {
-      margin: 20px;
-      padding: 15px;
-      background: linear-gradient(to right, #8f00ff, #8aaaff);
-      color: white;
-      border-radius: 15px;
+    .features div:hover, .services div:hover {
+      background: #eef;
     }
-
+    .important-info {
+      margin: 20px;
+      background: linear-gradient(to right, #7e5bef, #8b5cf6);
+      border-radius: 15px;
+      padding: 15px;
+      color: white;
+    }
+    .important-info h3 {
+      margin-top: 0;
+    }
     .bottom-nav {
       position: fixed;
       bottom: 0;
       width: 100%;
       background: white;
-      border-top: 1px solid #ccc;
       display: flex;
       justify-content: space-around;
       padding: 10px 0;
+      border-top: 1px solid #ddd;
     }
-
     .bottom-nav div {
       text-align: center;
       font-size: 12px;
-      color: #444;
       cursor: pointer;
     }
-
-    #recent-transactions {
-      padding: 0 15px 80px;
-    }
-
-    .tx {
-      background: white;
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 10px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.05);
+    .bottom-nav .center-btn {
+      background: #0018ff;
+      color: white;
+      font-size: 24px;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      margin-top: -30px;
     }
   </style>
 </head>
 <body>
 
   <div class="top-bar">
-    <div class="dots" onclick="location.href='admin.html'">⋮</div>
-    <div>BLUEPAY</div>
-    <div class="bell" onclick="location.href='history.html'">🔔</div>
-  </div>
-
-  <div class="welcome">
-    <div class="greet">Hi, <span id="userName">User</span></div>
-    <div class="bell" onclick="location.href='history.html'">🔔</div>
+    <div class="user" id="welcomeUser">Hi, User</div>
+    <div class="icons">
+      <span onclick="window.location.href='admin.html'">⋮</span>
+      <span onclick="window.location.href='history.html'">🔔</span>
+    </div>
   </div>
 
   <div class="balance-card">
-    <div>Available Balance</div>
-    <div class="amount" id="balanceDisplay">₦0</div>
-    <button onclick="spendMoney(500, 'Withdraw', 'withdraw.html')">Withdraw</button>
-    <div style="margin-top:10px; font-size: 12px;">Daily spend target ₦200,000</div>
+    <div>
+      <span>Available Balance</span>
+      <div class="btn" onclick="window.location.href='withdraw.html'">Withdraw</div>
+    </div>
+    <h2 id="userBalance">₦200,000.00</h2>
+    <div>
+      <small>Daily spend target</small>
+      <div style="background:#ddd;height:6px;border-radius:5px;width:100%;">
+        <div style="width:70%;height:6px;background:#bbb;border-radius:5px;"></div>
+      </div>
+      <div style="text-align:right;">₦200,000</div>
+    </div>
   </div>
 
   <div class="features">
-    <div class="card" onclick="spendMoney(500, 'Buy BPC', 'buy.html')">Buy BPC</div>
-    <div class="card" onclick="spendMoney(300, 'Watch', 'watch.html')">Watch</div>
-    <div class="card" onclick="spendMoney(100, 'Airtime', 'airtime.html')">Airtime</div>
-    <div class="card" onclick="spendMoney(200, 'Data', 'data.html')">Data</div>
+    <div onclick="window.location.href='buy.html'">Buy BPC</div>
+    <div onclick="window.location.href='watch.html'">Watch</div>
+    <div onclick="window.location.href='airtime.html'">Airtime</div>
+    <div onclick="window.location.href='data.html'">Data</div>
   </div>
 
-  <h3 style="padding: 15px 15px 0;">More Services</h3>
-  <div class="more-services">
-    <div class="card" onclick="location.href='support.html'">Support</div>
-    <div class="card" onclick="location.href='group.html'">Group</div>
-    <div class="card" onclick="location.href='earn.html'">Earn</div>
-    <div class="card" onclick="location.href='profile.html'">Profile</div>
+  <div class="services">
+    <div onclick="window.location.href='support.html'">Support</div>
+    <div onclick="window.location.href='group.html'">Group</div>
+    <div onclick="window.location.href='earn.html'">Earn</div>
+    <div onclick="window.location.href='profile.html'">Profile</div>
   </div>
 
-  <div class="info-banner">
-    <strong>Important Information</strong>
-    <p>How to Buy BPC Code:</p>
-    <ol>
-      <li>Click "Buy BPC"</li>
-      <li>Fill details and amount</li>
-      <li>Complete payment</li>
-      <li>Use code for airtime & withdrawals</li>
-    </ol>
-  </div>
-
-  <div id="recent-transactions">
-    <h3>Recent Transactions</h3>
-    <div id="transactionList"></div>
+  <div class="important-info">
+    <h3>Important Information</h3>
+    <p>1. Click "Buy BPC" from dashboard</p>
+    <p>2. Fill details and amount</p>
+    <p>3. Complete payment for BPC code</p>
+    <p>4. Use code for airtime & withdrawals</p>
   </div>
 
   <div class="bottom-nav">
-    <div onclick="location.href='dashboard.html'">Wallet</div>
-    <div onclick="location.href='group.html'">Social</div>
-    <div onclick="location.href='earn.html'">+</div>
-    <div onclick="location.href='data.html'">Data</div>
-    <div onclick="location.href='profile.html'">Profile</div>
+    <div onclick="window.location.href='wallet.html'">Wallet</div>
+    <div onclick="window.location.href='group.html'">Social</div>
+    <div class="center-btn" onclick="window.location.href='add.html'">+</div>
+    <div onclick="window.location.href='data.html'">Data</div>
+    <div onclick="window.location.href='profile.html'">Profile</div>
   </div>
 
   <script>
-    const balanceDisplay = document.getElementById("balanceDisplay");
-    const userNameSpan = document.getElementById("userName");
-
     // Load name and balance
-    const name = localStorage.getItem("registeredName") || "User";
-    userNameSpan.textContent = name;
+    const name = localStorage.getItem('paygo_name') || 'User';
+    const balance = parseInt(localStorage.getItem('paygo_balance') || '200000');
+    document.getElementById('welcomeUser').innerText = `Hi, ${name}`;
+    document.getElementById('userBalance').innerText = `₦${balance.toLocaleString()}`;
 
-    let balance = parseInt(localStorage.getItem("userBalance")) || 200000;
-    localStorage.setItem("userBalance", balance); // Save initial if not set
-    balanceDisplay.textContent = "₦" + balance.toLocaleString();
-
-    function updateBalanceDisplay() {
-      let b = parseInt(localStorage.getItem("userBalance")) || 0;
-      balanceDisplay.textContent = "₦" + b.toLocaleString();
-    }
-
-    function spendMoney(amount, action, redirectPage) {
-      let balance = parseInt(localStorage.getItem("userBalance")) || 0;
-      if (balance >= amount) {
-        balance -= amount;
-        localStorage.setItem("userBalance", balance);
-        updateBalanceDisplay();
-
-        // Save transaction
-        let history = JSON.parse(localStorage.getItem("transactionHistory")) || [];
-        history.unshift({
-          type: action,
-          amount: amount,
-          date: new Date().toLocaleString()
-        });
-        localStorage.setItem("transactionHistory", JSON.stringify(history));
-
-        setTimeout(() => location.href = redirectPage, 500);
-      } else {
-        alert("Insufficient balance!");
-      }
-    }
-
-    // Load recent transactions (top 5)
-    const historyList = JSON.parse(localStorage.getItem("transactionHistory")) || [];
-    const txListDiv = document.getElementById("transactionList");
-    if (historyList.length === 0) {
-      txListDiv.innerHTML = "<p>No recent transactions.</p>";
-    } else {
-      historyList.slice(0, 5).forEach(tx => {
-        const div = document.createElement("div");
-        div.className = "tx";
-        div.innerHTML = `<strong>${tx.type}</strong><br>₦${tx.amount.toLocaleString()} <br><small>${tx.date}</small>`;
-        txListDiv.appendChild(div);
-      });
-    }
+    // Update balance on dashboard after spending
+    window.addEventListener('storage', () => {
+      const updatedBalance = parseInt(localStorage.getItem('paygo_balance') || '200000');
+      document.getElementById('userBalance').innerText = `₦${updatedBalance.toLocaleString()}`;
+    });
   </script>
-
 </body>
 </html>
